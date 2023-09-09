@@ -1,0 +1,12 @@
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\bin\Debug\net6.0\LaRed.Shared.deps.json
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\bin\Debug\net6.0\LaRed.Shared.dll
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\bin\Debug\net6.0\LaRed.Shared.pdb
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\LaRed.Shared.csproj.AssemblyReference.cache
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\LaRed.Shared.GeneratedMSBuildEditorConfig.editorconfig
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\LaRed.Shared.AssemblyInfoInputs.cache
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\LaRed.Shared.AssemblyInfo.cs
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\LaRed.Shared.csproj.CoreCompileInputs.cache
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\LaRed.Shared.dll
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\refint\LaRed.Shared.dll
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\LaRed.Shared.pdb
+E:\ITM2023-02\Parcial4\LaRed\LaRed\Shared\obj\Debug\net6.0\ref\LaRed.Shared.dll
