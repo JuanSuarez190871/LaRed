@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AppContext = LaRed.DataAccess.Data.AppContext;
 
 namespace LaRed.Server.Controllers
 {
@@ -7,5 +8,6 @@ namespace LaRed.Server.Controllers
     [ApiController]
     public class MantenimientoController : ControllerBase
     {
+        private readonly AppContext _context;
     }
 }
