@@ -5,7 +5,7 @@ using AppContext = LaRed.DataAccess.Data.AppContext;
 using LaRed.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using LaRed.DataAccess.Data;
-
+//prueba
 namespace LaRed.Server.Controllers
 {
     [Route("api/[controller]")]
