@@ -10,6 +10,7 @@ namespace LaRed.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class UbicacionesController : ControllerBase
     {
         private readonly AppContext _context;
@@ -99,7 +100,7 @@ namespace LaRed.Server.Controllers
 
 
 
-        // POST: api/Ubicaciones
+        // POST: api/Ubicaciones **
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Ubicaciones>> PostUbicacion(Ubicaciones ubicacion)
