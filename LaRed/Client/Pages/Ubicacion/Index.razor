@@ -1,0 +1,72 @@
+﻿﻿
+@using LaRed.Shared.Models
+@page "/ubicaciones"
+
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<h3>Ubicacion</h3>
+
+@if (_ubicaciones == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre Ubicacion</th>
+                <th>Descripcion Ubicacion</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ubicaciones in _ubicaciones)
+            {
+                <tr>
+                    <td>@ubicaciones.ID.ToString()</td>
+                    <td>@ubicaciones.NombreUbicacion</td>
+                    <td>@ubicaciones.DescripcionUbicacion</td>
+                    <td>
+                        <button class="btn btn-info"
+                        @onclick="(() => Edit(ubicaciones.ID))">
+                            Edit
+                        </button>
+                        <button class="btn btn-danger"
+                        @onclick="(() => Delete(ubicaciones.ID))">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <button class="btn btn-success" @onclick="Create">Agregar Ubicacion</button>
+    </div>
+}
+
+
+@code {
+    private List<Ubicaciones> _ubicaciones;
+    protected override async Task OnInitializedAsync()
+    {
+        _ubicaciones = await Http.GetFromJsonAsync<List<Ubicaciones>>("/api/Ubicaciones");
+    }
+    private async Task Delete(int id)
+    {
+        await Http.DeleteAsync($"/api/Ubicaciones/{id}");
+        _ubicaciones = await Http.GetFromJsonAsync<List<Ubicaciones>>("/api/Ubicaciones");
+        StateHasChanged();
+    }
+    private void Edit(int id)
+    {
+        Navigation.NavigateTo($"/ubicaciones/edit/{id}");
+    }
+    private void Create()
+    {
+        Navigation.NavigateTo("/ubicaciones/create");
+    }
+}

@@ -1,0 +1,35 @@
+﻿@page "/ubicaciones/create"
+@using LaRed.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<h3>Agregar Ubicacion</h3>
+
+<EditForm Model="@_ubicaciones" OnValidSubmit="Post">
+    <div class="form-group">
+        <label>Nombre Ubicacion: </label>
+        <InputTextArea @bind-Value="_ubicaciones.NombreUbicacion" />
+    </div>
+    <div class="form-group">
+        <label>Descripción Ubicacion</label>
+        <InputTextArea @bind-Value="_ubicaciones.DescripcionUbicacion" />
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Agregar Ubicacion" />
+    </div>
+</EditForm>
+
+
+
+@code {
+    private Ubicaciones _ubicaciones = new();
+    
+    private async Task Post()
+    {
+        await Http.PostAsJsonAsync<Ubicaciones>("/api/Ubicaciones/", _ubicaciones);
+        Navigation.NavigateTo("/ubicaciones");
+    }
+
+    
+}
