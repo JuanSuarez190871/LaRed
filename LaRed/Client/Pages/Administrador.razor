@@ -1,0 +1,173 @@
+﻿@page "/Administrador";
+@inject HttpClient Http;
+@using LaRed.Shared.Models;
+@using System.Reflection;
+
+@inject NavigationManager Navigation
+<h3>Administrador</h3>
+@if (listaActivos==null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+
+    <button @onclick='() => MostrarModal("activos")'>Ver activos</button>
+    <button @onclick='() => MostrarModal("estados")'>Ver estado</button>
+    <button @onclick='() => MostrarModal("ubicaciones")'>Ver ubicacion</button>
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" role="dialog" style="display: @(modalActivo == "activos" ? "block" : "none")" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Título del Modal</h5>
+                    <button type="button" class="close" @onclick="CerrarModal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var propertyInfo in listaActivos.FirstOrDefault()?.GetType().GetProperties() ?? new PropertyInfo[0])
+                                {
+                                    <th>@propertyInfo.Name</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var forecast in listaActivos)
+                            {
+                                <tr>
+                                    @foreach (var propertyInfo in listaActivos.GetType().GetProperties())
+                                    {
+                                        <td>@propertyInfo.GetValue(listaActivos)</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick='CerrarModal'>Cerrar</button>
+                    <button class="btn btn-success" @onclick="Create">Añadir activo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" style="display: @(modalActivo == "estados" ? "block" : "none")" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Estados</h5>
+                    <button type="button" class="close" @onclick="CerrarModal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var propertyInfo in listaEstados.FirstOrDefault()?.GetType().GetProperties() ?? new PropertyInfo[0])
+                                {
+                                    <th>@propertyInfo.Name</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var forecast in listaEstados)
+                            {
+                                <tr>
+                                    @foreach (var propertyInfo in listaEstados.GetType().GetProperties())
+                                    {
+                                        <td>@propertyInfo.GetValue(listaEstados)</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick='CerrarModal'>Cerrar</button>
+                    <button class="btn btn-success" @onclick="Create">Añadir estado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="modal" tabindex="-1" role="dialog" style="display: @(modalActivo == "ubicaciones" ? "block" : "none")" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Estados</h5>
+                    <button type="button" class="close" @onclick="CerrarModal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var propertyInfo in listaEstados.FirstOrDefault()?.GetType().GetProperties() ?? new PropertyInfo[0])
+                                {
+                                    <th>@propertyInfo.Name</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var forecast in listaEstados)
+                            {
+                                <tr>
+                                    @foreach (var propertyInfo in listaEstados.GetType().GetProperties())
+                                    {
+                                        <td>@propertyInfo.GetValue(listaEstados)</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick='CerrarModal'>Cerrar</button>
+                    <button class="btn btn-success" @onclick="Create">Añadir estado</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+}
+
+@code {
+    private List<Activos> listaActivos;
+    private List<Estados> listaEstados;
+    private List<Ubicaciones> listaUbicaciones;
+    private string modalActivo = "";
+    protected override async Task OnInitializedAsync()
+    {
+
+        listaActivos = await Http.GetFromJsonAsync<List<Activos>>("/api/Activos");
+        listaEstados = await Http.GetFromJsonAsync<List<Estados>>("/api/Admin/Estados");
+    }
+    private async Task Delete(int id)
+    {
+        await Http.DeleteAsync($"/api/Activos/{id}");
+        listaActivos = await Http.GetFromJsonAsync<List<Activos>>("/api/Activos");
+        StateHasChanged();
+    }
+    private void Edit(int id)
+    {
+        Navigation.NavigateTo($"/activos/edit/{id}");
+    }
+    private void Create()
+    {
+        Navigation.NavigateTo("/activos/create");
+    }
+    private void MostrarModal(string modal)
+    {
+        modalActivo = modal; // Mostrar el modal al hacer clic en el botón
+    }
+    private void CerrarModal()
+    {
+        modalActivo = ""; // Cerrar el modal al hacer clic en el botón Cerrar o en el botón de cierre
+    }
+    
+}

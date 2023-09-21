@@ -1,0 +1,38 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "restored": true,
+      "restoreTime": "2023-09-20T01:34:29.7810132Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2023-09-17T00:08:49.2322946Z"
+    },
+    "secrets1": {
+      "restored": true,
+      "restoreTime": "2023-09-17T00:08:18.0878358Z"
+    }
+  },
+  "parameters": {
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "ae0a086a-e076-46d2-863a-799d38bd174e"
+    },
+    "secrets1.resourceGroupName": {
+      "Name": "secrets1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "RG-WA-LaRed-Prod"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "RG-WA-LaRed-Prod"
+    },
+    "secrets1.subscriptionId": {
+      "Name": "secrets1.subscriptionId",
+      "Type": "subscription",
+      "Value": "ae0a086a-e076-46d2-863a-799d38bd174e"
+    }
+  }
+}
