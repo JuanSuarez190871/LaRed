@@ -1,0 +1,32 @@
+﻿@using LaRed.Shared.Models
+@page "/mantenimiento/edit/{id:int}"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+<h3>Editar Mantenimiento</h3>
+<EditForm Model="@_mantenimiento" OnValidSubmit="Put">
+    <div class="form-group">
+        <label>Fecha de Mantenimiento: </label>
+        <InputDate @bind-Value="_mantenimiento.FechaMantenimiento" />
+    </div>
+    <div class="form-group">
+        <label>Descripción</label>
+        <InputTextArea @bind-Value="_mantenimiento.DescripcionMantenimiento" />
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Editar Mantenimiento" />
+    </div>
+</EditForm>
+@code {
+    [Parameter]
+    public int ID { get; set; }
+    private Mantenimiento _mantenimiento = null;
+    protected override async Task OnInitializedAsync()
+    {
+        _mantenimiento = await Http.GetFromJsonAsync<Mantenimiento>($"/api/Mantenimiento/{ID}");
+    }
+    private async Task Put()
+    {
+        await Http.PutAsJsonAsync<Mantenimiento>($"/api/Mantenimiento/{_mantenimiento.ID}", _mantenimiento);
+        Navigation.NavigateTo("/Mantenimiento");
+    }
+}

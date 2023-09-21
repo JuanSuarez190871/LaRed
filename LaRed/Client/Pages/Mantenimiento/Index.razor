@@ -1,0 +1,74 @@
+﻿
+@using LaRed.Shared.Models
+@page "/Mantenimiento"
+
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<h3>Mantenimientos</h3>
+
+@if (_mantenimiento == null)
+{
+<p><em>Cargando...</em></p>
+}
+else
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>ActivoId</th>
+            <th>Fecha de Mantenimiento</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mantenimiento in _mantenimiento)
+        {
+            <tr>
+                <td>@mantenimiento.ID.ToString()</td>
+                <td>@mantenimiento.ActivoID.ToString()</td>
+                <td>@mantenimiento.FechaMantenimiento.ToString()</td>
+                <td>@mantenimiento.DescripcionMantenimiento</td>
+                <td>
+                    <button class="btn btn-info"
+                    @onclick="(() => Edit(mantenimiento.ID))">
+                        Edit
+                    </button>
+                    <button class="btn btn-danger"
+                    @onclick="(() => Delete(mantenimiento.ID))">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <button class="btn btn-success" @onclick="Create">Agregar Mantenimiento</button>
+</div>
+}
+
+
+@code {
+    private List<Mantenimiento> _mantenimiento;
+    protected override async Task OnInitializedAsync()
+    {
+        _mantenimiento = await Http.GetFromJsonAsync<List<Mantenimiento>>("/api/Mantenimiento");
+    }
+    private async Task Delete(int id)
+    {
+        await Http.DeleteAsync($"/api/Mantenimiento/{id}");
+        _mantenimiento = await Http.GetFromJsonAsync<List<Mantenimiento>>("/api/Mantenimiento");
+        StateHasChanged();
+    }
+    private void Edit(int id)
+    {
+        Navigation.NavigateTo($"/mantenimiento/edit/{id}");
+    }
+    private void Create()
+    {
+        Navigation.NavigateTo("/mantenimiento/create");
+    }
+}
